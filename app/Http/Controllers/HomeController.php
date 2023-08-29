@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Posts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -25,6 +26,10 @@ class HomeController extends Controller
     public function index()
     {
         $posts = Posts::all();
+
+        if(Auth::user()->role == 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
 
         return view('welcome', compact('posts'));
     }

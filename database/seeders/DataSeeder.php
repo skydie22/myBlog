@@ -17,6 +17,7 @@ class DataSeeder extends Seeder
     {
         User::Create([
             'name' => 'admin',
+            'role' => 'admin',
             'username' => 'skydie',
             'password' => bcrypt('password')
         ]);

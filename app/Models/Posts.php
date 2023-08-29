@@ -12,7 +12,8 @@ class Posts extends Model
     protected $fillable = [
         'judul',
         'deskripsi',
-        'kategori_id'
+        'kategori_id',
+        'foto'
     ];
 
     public function kategori()

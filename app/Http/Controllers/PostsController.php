@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kategori;
 use App\Models\Posts;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,23 @@ class PostsController extends Controller
     {
         $post = Posts::all();
 
-        return redirect()->back();
+        return view('admin.article.index', compact('post'));
+    }
+
+    public function indexStore()
+    {
+        $kategori = Kategori::all();
+
+        return view('admin.article.store', compact('kategori'));
+    }
+
+    public function indexUpdateArticle($id)
+    {
+        $p = Posts::find($id);
+        $kategori = Kategori::all();
+
+        // dd($post);
+        return view('admin.article.update', compact('p', 'kategori'));
     }
 
     /**
@@ -34,13 +51,19 @@ class PostsController extends Controller
         //validate form
         $this->validate($request, [
             'judul',
-            'deskripsi'
+            'deskripsi',
+            'foto' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
 
         //create posts
+        $imageName = time() . '.' . $request->foto->extension();
+        $request->foto->move(public_path('img/article/thumbnail'), $imageName);
         Posts::Create([
             'judul' => $request->judul,
-            'deskripsi' => $request->deskripsi
+            'deskripsi' => $request->deskripsi,
+            'kategori_id' => $request->kategori_id,
+            'foto' => $imageName,
+
         ]);
 
         return redirect()->back();
@@ -65,16 +88,18 @@ class PostsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Posts $posts, $id)
+    public function update(Request $request, $id)
     {
         //find posts id
-        $post = Posts::findOrFail($id);
 
-        //update posts
-        $post->update([
+
+
+
+        Posts::find($id)->update([
             'judul' => $request->judul,
-            'deskripsi' => $request->deskripsi
+            'deskripsi' => $request->deskripsi,
         ]);
+
 
         return redirect()->back();
 

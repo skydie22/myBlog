@@ -14,7 +14,7 @@ class KategoriController extends Controller
     {
         $kategori = Kategori::all();
 
-        return redirect()->back();
+        return view('admin.category.index', compact('kategori'));
     }
 
     /**

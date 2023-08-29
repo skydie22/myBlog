@@ -42,4 +42,12 @@ class LoginController extends Controller
     {
         return 'username';
     }
+
+    public function authenticated($user)
+    {
+        if($user->role == 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
+        return view('welcome');
+    }
 }
