@@ -25,12 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Posts::all();
+        $post = Posts::all();
 
-        if(Auth::user()->role == 'admin') {
-            return redirect()->route('admin.dashboard');
-        }
+        // if(Auth::user()->role == 'admin') {
+        //     return redirect()->route('admin.dashboard');
+        // }
 
-        return view('welcome', compact('posts'));
+        return view('welcome', compact('post'));
     }
 }

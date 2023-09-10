@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    @yield('head')
+    <?php echo $__env->yieldContent('head'); ?>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard - Mazer Admin Dashboard</title>
@@ -73,20 +73,20 @@
                         <li class="sidebar-title">Menu</li>
 
                         <li class="sidebar-item active">
-                            <a href="{{ route('admin.dashboard') }}" class="sidebar-link">
+                            <a href="<?php echo e(route('admin.dashboard')); ?>" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a href="{{ route('article') }}" class="sidebar-link">
+                            <a href="<?php echo e(route('article')); ?>" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Article</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{{ route('category') }}" class="sidebar-link">
+                            <a href="<?php echo e(route('category')); ?>" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Category</span>
                             </a>
@@ -99,8 +99,8 @@
                         </li>
                         </li>
 
-                        <li class="sidebar-item {{ request()->is('logout*') ? 'active' : '' }} ">
-                            <a href="{{ route('logout') }}"
+                        <li class="sidebar-item <?php echo e(request()->is('logout*') ? 'active' : ''); ?> ">
+                            <a href="<?php echo e(route('logout')); ?>"
                                 onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();"
                                 class="sidebar-link">
@@ -108,8 +108,8 @@
                                 <span>Logout</span>
                             </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
+                            <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" class="d-none">
+                                <?php echo csrf_field(); ?>
                             </form>
                         </li>
                     </ul>
@@ -125,7 +125,7 @@
 
             <!-- EXTEND -->
             <div class="page-content">
-                @yield('content')
+                <?php echo $__env->yieldContent('content'); ?>
             </div>
 
         </div>
@@ -143,7 +143,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 
-    @stack('script')
+    <?php echo $__env->yieldPushContent('script'); ?>
     <script>
         ClassicEditor
                               .create( document.querySelector( '#editor' ) )
@@ -160,3 +160,4 @@
 </body>
 
 </html>
+<?php /**PATH C:\laragon\www\myblog\resources\views/layouts/master.blade.php ENDPATH**/ ?>

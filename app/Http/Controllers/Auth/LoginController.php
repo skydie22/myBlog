@@ -48,6 +48,6 @@ class LoginController extends Controller
         if($user->role == 'admin') {
             return redirect()->route('admin.dashboard');
         }
-        return view('welcome');
+        // return view('welcome');
     }
 }

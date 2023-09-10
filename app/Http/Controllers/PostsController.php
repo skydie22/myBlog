@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kategori;
 use App\Models\Posts;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -24,6 +25,8 @@ class PostsController extends Controller
 
         return view('admin.article.store', compact('kategori'));
     }
+
+
 
     public function indexUpdateArticle($id)
     {
@@ -55,9 +58,10 @@ class PostsController extends Controller
             'foto' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
 
+
         //create posts
         $imageName = time() . '.' . $request->foto->extension();
-        $request->foto->move(public_path('img/article/thumbnail'), $imageName);
+        $request->foto->move(public_path('img/article'), $imageName);
         Posts::Create([
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,

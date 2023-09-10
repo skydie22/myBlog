@@ -1,19 +1,18 @@
-@extends('layouts.master')
-@section('head')
-    <meta name="csrf_token" content="{{ csrf_token() }}" />
-@endsection
+<?php $__env->startSection('head'); ?>
+    <meta name="csrf_token" content="<?php echo e(csrf_token()); ?>" />
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">Add New Article</h4>
         </div>
         <div class="card-body">
-            <form action="{{ route('article.store') }}" method="POST" enctype="multipart/form-data" id="formW">
+            <form action="<?php echo e(route('article.store')); ?>" method="POST" enctype="multipart/form-data" id="formW">
                 <div class="row">
                     <div class="col-7">
 
-                        @csrf
+                        <?php echo csrf_field(); ?>
                         <div class="form-group mb-3">
                             <label for="basicInput">Title</label>
                             <input type="text" name="judul" required class="form-control" id="basicInput"
@@ -32,9 +31,9 @@
                             <label for="basicInput">Category</label>
                             <select class="form-select" name="kategori_id" aria-label="Default select example">
                                 <option selected>Select Option</option>
-                                @foreach ($kategori as $k)
-                                    <option value="{{ $k->id }}">{{ $k->nama }}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $kategori; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($k->id); ?>"><?php echo e($k->nama); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                             </select>
                         </div>
@@ -57,8 +56,8 @@
             </form>
         </div>
     </div>
-@endsection
-@push('script')
+<?php $__env->stopSection(); ?>
+<?php $__env->startPush('script'); ?>
     <script>
       selectImage.onchange = evt => {
             preview = document.getElementById('preview');
@@ -71,4 +70,6 @@
         }
     </script>
 
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\myblog\resources\views/admin/article/store.blade.php ENDPATH**/ ?>

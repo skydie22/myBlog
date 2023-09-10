@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DetailArticleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PostsController;
@@ -24,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/article/{judul}', [DetailArticleController::class, 'index'])->name('show.article');
 Route::get('/admin/login', function() {
     return redirect(route('login'));
 });
@@ -51,7 +53,4 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function() {
 });
 
 
-//filemanager
-Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function (){
-    \UniSharp\LaravelFilemanager\Lfm::routes();
-});
+
